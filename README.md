@@ -7,12 +7,19 @@ Message Format:
 IRGBXYZXYZ...E
 
 I = 1 byte cube ID (0-253, 254 is wildcard, 255 is unused)
+
 R = 1 byte red value (0-255)
+
 G = 1 byte green value (0-255)
+
 B = 1 byte blue value (0-255)
+
 X = x coordinate (0-253, 254 is a wildcard)
+
 Y = y coordinate (0-253, 254 is a wildcard)
+
 Z = z coordinate (0-253, 254 is a wildcard)
+
 E = end marker (255)
 
 Examples:
