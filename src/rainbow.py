@@ -34,7 +34,7 @@ while True:
         z = randint(0,15)
     data = bytes([255,r,g,b,adressMode,1,x,y,z])
     arduino.write(data)
-    time.sleep(.1)
+    time.sleep(.5)
     # arduino.write(data)
     # time.sleep(.25)
     arduino.flushInput()
