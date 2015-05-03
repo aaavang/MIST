@@ -11,8 +11,8 @@ time.sleep(1)
 data = bytes([255,0,0,0,0,1,255,255,255])
 arduino.write(data)
 
-adressMode = 0
 while True:
+    adressMode = randint(0,1)
     colorHex = str(wheel.next().hex)
     print(colorHex)
     r = int(colorHex[:2],16)
