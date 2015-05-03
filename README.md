@@ -4,9 +4,9 @@ This project is to experiment with controlling multiple chained Rainbow Cubes ov
 Currently only the unlimited message length is implemented
 
 Message Format:
-IRGBXYZXYZ...E
+IRGBMNXYZXYZ...
 
-I = 1 byte cube ID (0-253, 254 is wildcard, 255 is unused)
+I = 1 byte cube ID (0-254, 255 is wildcard)
 
 R = 1 byte red value (0-255)
 
@@ -14,56 +14,26 @@ G = 1 byte green value (0-255)
 
 B = 1 byte blue value (0-255)
 
-X = x coordinate (0-253, 254 is a wildcard)
+M = 1 byte address mode (0 = non-masked, 1 = masked)
 
-Y = y coordinate (0-253, 254 is a wildcard)
+N = 1 byte number of XYZ pairs
 
-Z = z coordinate (0-253, 254 is a wildcard)
+X = 1 byte (see below for usage)
 
-E = end marker (255)
+Y = 1 byte (see below for usage)
 
-Examples:
-
-Clear the entire cube
-
-DEC: 0 0 0 0 254 254 254 255
-
-HEX: 00 00 00 00 FE FE FE FF
+Z = 1 byte (see below for usage)
 
 
+Address Modes:
 
-Make the entire cube green
+Non-masked: This mode treats the XYZ values as literal points, with 255 being a wildcard.  This mode supports up to 254x254x254 sized cubes.
 
-DEC: 0 0 255 0 254 254 254 255
-
-HEX: 00 00 FF 0 FE FE FE FF
-
+Example: (0,0,255) = selects the column of leds at x=0,y=0
 
 
-Make the top sheet blue
+Masked:  This mode treats the XYZ values as bitmasks.  An LED is selected if its position in the bit mask is 1 for X, Y, and Z.  This mode supports up to 8x8x8 sized cubes.
 
-DEC: 0 0 0 255 254 254 3 255
+Example: (9,9,9) = (1001,1001,1001) = selects the corner LEDs
 
-HEX: 00 00 00 FF FE FE 03 FF
-
-
-
-Make a single line red
-
-DEC: 0 255 0 0 254 1 1 255
-
-HEX: 00 FF 00 00 FE 01 01 FF
-
-
-
-Make a single LED white
-
-DEC: 0 255 255 255 1 1 1 255
-
-HEX: 00 FF FF FF 01 01 01 FF
-
-
-Make two intersecting lines
-DEC: 0 0 0 255 254 254 1 254 1 254 255
-
-HEX: 00 00 00 FF FE FE 01 FE 01 FE FF
+Example: (15,15,15) = (1111,1111,1111) = selects the entire cube
