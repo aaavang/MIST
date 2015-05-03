@@ -71,7 +71,7 @@ void loop() {
           for (int i = minX; i <= maxX; ++i)
             for (int j = minY; j <= maxY; ++j)
               for (int k = minZ; k <= maxZ; ++k)
-                Rb.setPixelZXY(k, i, j, r,  g, b);
+                Rb.setPixelZXY(k, i, j, r, g, b);
 
         } else if (addressMode == MASKED) {
           // treat XYZ as bitmasks
@@ -80,16 +80,17 @@ void loop() {
           char zs[CUBE_SIZE];
 
           for (int i  = 0; i < CUBE_SIZE; ++i) {
-            xs[i] = x & (1 << i);
-            ys[i] = y & (1 << i);
-            zs[i] = z & (1 << i);
+            char mask = (1 << i);
+            xs[i] = x & mask;
+            ys[i] = y & mask;
+            zs[i] = z & mask;
           }
 
           for (int x = 0; x < CUBE_SIZE; ++x)
             for (int y = 0; y < CUBE_SIZE; ++y)
               for (int z = 0; z < CUBE_SIZE; ++z)
                 if (xs[x] && ys[y] && zs[z])
-                  Rb.setPixelZXY(z, x, y, r,  g, b);
+                  Rb.setPixelZXY(z, x, y, r, g, b);
         }
       }
     }
